@@ -1,0 +1,26 @@
+---
+Config:
+  AttrNameSuffix: ""            # attribute name suffix
+  CharDataFieldName: "data field"  # "char data field name"
+  CompactTypes: true            # create compact types
+  ElemNameSuffix: ""            # element name suffix
+  FormatSource: false           # format source
+  Header: "head"                # header
+  IgnoreErrors: false           # ignore errors
+  IgnoreNamespaces: false       # ignore namespaces
+  Imports: false                # generate import statements
+  IntType: "int"                # int type limited to go types?
+  NamedRoot: false              # create an XMLName field for the root element
+  NamedTypes: false             # create named types for all elements")
+  NoEmptyElements: false        # use type string instead of struct{} for empty elements
+  NoExport: false               # create unexported types
+  Output: "out"                 # output filename
+  PackageName: "test yaml"      # package name
+  Pattern: ""                   # filename pattern to observe
+  PreserveOrder: false          # preserve order of types and fields
+  TimeLayout: "2006-01-02T15:04:05Z" # time layout
+  TopLevelAttributes: false           # include top level attributes
+  TypesOnly: false                # generate structs only, without header, package, or imports
+  UsePointersForOptionalFields: bool # use pointers for options
+  UseRawToken: false             # use encoding/xml.Decoder.RawToken")
+
