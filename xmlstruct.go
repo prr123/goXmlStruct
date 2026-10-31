@@ -55,15 +55,15 @@ func main() {
         if idx > -1 {log.Fatalf("error -- yaml file <%s> has an extension!\n", yamlFilnam)}
     }
 
-    inpFilnam := ""
-    ival, ok := flagMap["yaml"]
+    inpFilnames := ""
+    ival, ok := flagMap["inp"]
     if !ok {
         log.Fatalf("error -- no inp flag provided!\n")
     } else {
         if ival.(string) == "none" {log.Fatalf("error -- no inp file name provided!\n")}
-        inpFilnam = ival.(string)
-        idx := strings.IndexByte(inpFilnam, '.')
-        if idx > -1 {log.Fatalf("error -- inp file <%s> has an extension!\n", inpFilnam)}
+        inpFilnames = ival.(string)
+        idx := strings.IndexByte(inpFilnames, '.')
+        if idx > -1 {log.Fatalf("error -- inp file <%s> has an extension!\n", inpFilnames)}
     }
 
     outFilnam := ""
@@ -89,13 +89,21 @@ func main() {
 	}
 
     xmlFilDir := "inp/"
-    xmlFilnam := xmlFilDir + inpFilnam + ".xml"
-    xmlB, err := os.ReadFile(xmlFilnam)
-    if err != nil {log.Fatalf("error -- cannot read xml file: %v\n", err)}
-	if dbg {
-		fmt.Printf("*** xml File ***\n")
-		fmt.Printf("%s\n",xmlB)
-		fmt.Println()
+	// check for multiple files
+	// Split the string into a slice of names using strings.Split
+	inpNames := strings.Split(inpFilnames, ",")
+
+	// Trim whitespace from each name to clean up spaces
+	for i := range inpNames {
+		inpNames[i] = strings.TrimSpace(inpNames[i])
+	    xmlFilnam := xmlFilDir + inpNames[i] + ".xml"
+    	xmlB, err := os.ReadFile(xmlFilnam)
+		if err != nil {log.Fatalf("error -- cannot read xml file [i]: %v\n",i+1, err)}
+		if dbg {
+			fmt.Printf("*** xml File ***\n")
+			fmt.Printf("%s\n",xmlB)
+			fmt.Println()
+		}
 	}
 
     outFilDir := "out/"
@@ -107,7 +115,9 @@ func main() {
 		fmt.Println()
 	}
 	defer outFil.Close()
-	outFil.WriteString("// go struct for " + xmlFilnam +"\n")
-
+	for i := range inpNames {
+		outstr := fmt.Sprintf("// go struct %d for %s\n\n", i, inpNames[i])
+		outFil.WriteString(outstr)
+	}
 
 }
