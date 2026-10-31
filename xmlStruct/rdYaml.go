@@ -5,7 +5,7 @@ type YamlInp struct {
 //    attrNameSuffix               = pflag.String("attr-name-suffix", xmlstruct.DefaultAttrNameSuffix, "attribute name suffix")
     AttrNameSuffix	string `yaml:"AttrNameSuffix"` // attribute name suffix
 //    charDataFieldName            = pflag.String("char-data-field-name", xmlstruct.DefaultCharDataFieldName, "char data field name")
-    CharDataFieldName string `yaml:"CharDataFieldName" // char data field name
+    CharDataFieldName string `yaml:"CharDataFieldName"` // char data field name
 //    compactTypes                 = pflag.Bool("compact-types", xmlstruct.DefaultCompactTypes, "create compact types")
     CompactTypes  bool `yaml:"CompactTypes"`  // create compact types
 //    elemNameSuffix               = pflag.String("elem-name-suffix", xmlstruct.DefaultElemNameSuffix, "element name suffix")
