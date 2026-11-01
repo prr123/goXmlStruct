@@ -1,2 +1,4 @@
+github.com/goccy/go-yaml v1.19.2 h1:PmFC1S6h8ljIz6gMRBopkjP1TVT7xuwrButHID66PoM=
+github.com/goccy/go-yaml v1.19.2/go.mod h1:XBurs7gK8ATbW4ZPGKgcbrY1Br56PdM69F7LkFRi1kA=
 github.com/prr123/utility v0.0.0-20231118162304-2ae693d53e09 h1:V+DMrvr3hNflB3aNFa0837OglecucZLbNiy3fEeFJBE=
 github.com/prr123/utility v0.0.0-20231118162304-2ae693d53e09/go.mod h1:dJlEcbehgFOUuQ6D0iV9F7GnFxE3sjyss8uqgwQWqDI=
