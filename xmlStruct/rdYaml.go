@@ -1,7 +1,14 @@
 package xmlStruct
 
+import (
+	"fmt"
+	"os"
+
+	"github.com/goccy/go-yaml"
+)
 
 type YamlInp struct {
+	Config struct {
 //    attrNameSuffix               = pflag.String("attr-name-suffix", xmlstruct.DefaultAttrNameSuffix, "attribute name suffix")
     AttrNameSuffix	string `yaml:"AttrNameSuffix"` // attribute name suffix
 //    charDataFieldName            = pflag.String("char-data-field-name", xmlstruct.DefaultCharDataFieldName, "char data field name")
@@ -45,7 +52,57 @@ type YamlInp struct {
 //    typesOnly                    = pflag.Bool("types-only", false, "generate structs only, without header, package, or imports")
     TypesOnly bool `yaml:"TypesOnly"` // generate structs only, without header, package, or imports
 //    usePointersForOptionalFields = pflag.Bool("use-pointers-for-optional-fields", xmlstruct.DefaultUsePointersForOptionalFields, "use pointers for opt>
-    UsePointersForOptionalFields bool `yaml:"UsePointersForOptionalFields"`// use pointers for optional fields
+    UsePointersForOptionalFields bool `yaml:"UsePointersForOptionalFields"` // use pointers for optional fields
 //    useRawToken                  = pflag.Bool("use-raw-token", xmlstruct.DefaultUseRawToken, "use encoding/xml.Decoder.RawToken")
     UseRawToken  bool `yaml:"UseRawToken"`// use encoding/xml.Decoder.RawToken
+} `yaml:"Config"`
+}
+
+func RdYaml(filnam string) (config YamlInp, err error) {
+
+	yamlData, err := os.ReadFile(filnam)
+	if err != nil {return config, fmt.Errorf("cannot read yaml file [%s]: %v", filnam, err)}
+
+	err = yaml.Unmarshal([]byte(yamlData), &config)
+	if err != nil {return config, fmt.Errorf("cannot unmarshal yamldata: %v", err)}
+
+	return config, nil
+}
+
+func PrintConfig(cfg YamlInp) {
+
+	config := cfg.Config
+	fmt.Println("****** Config *******")
+    fmt.Printf("  AttrNameSuffix:    %s\n", config.AttrNameSuffix)	// attribute name suffix
+    fmt.Printf("  CharDataFieldName: %s\n", config.CharDataFieldName) // char data field name
+    fmt.Printf("  CompactTypes:      %t\n", config.CompactTypes) // create compact types
+    fmt.Printf("  ElemNameSuffix:    %s\n", config.ElemNameSuffix) // element name suffix
+    fmt.Printf("  FormatSource:      %t\n", config.FormatSource) // format source
+    fmt.Printf("  Header:            %s\n", config.Header) // header
+
+    fmt.Printf("  IgnoreErrors:       %t\n", config.IgnoreErrors) // ignore errors
+    fmt.Printf("  IgnoreNamespaces:   %t\n", config.IgnoreNamespaces) // ignore namespaces
+    fmt.Printf("  Imports:            %t\n", config.Imports) // generate import statements
+
+    fmt.Printf("  IntType:            %s\n", config.IntType) //int type
+    fmt.Printf("  NamedRoot:          %t\n", config.NamedRoot) // create an XMLName field for the root element
+    fmt.Printf("  NamedTypes:         %t\n", config.NamedTypes) // create named types for all elements
+
+    fmt.Printf("  NoEmptyElements:    %t\n", config.NoEmptyElements) // use type string instead of struct{} for empty elements
+    fmt.Printf("  NoExport:           %t\n", config.NoExport) // create unexported types
+    fmt.Printf("  Output:             %s\n", config.Output) // output filename
+
+    fmt.Printf("  PackageName:        %s\n", config.PackageName) // package name
+    fmt.Printf("  Pattern:            %s\n", config.Pattern) // filename pattern to observe
+    fmt.Printf("  PreserveOrder:      %t\n", config.PreserveOrder) // preserve order of types and fields
+
+    fmt.Printf("  TimeLayout:         %s\n", config.TimeLayout) // template for time layout
+    fmt.Printf("  TopLevelAttributes: %t\n", config.TopLevelAttributes) // include top level attributes
+    fmt.Printf("  TypesOnly:          %t\n", config.TypesOnly) // generate structs only, without header, package, or imports
+
+    fmt.Printf("  UsePointersForOptionalFields: %t\n", config.UsePointersForOptionalFields) // use pointers for optional fields
+    fmt.Printf("  UseRawToken:        %t\n", config.UseRawToken)// use encoding/xml.Decoder.RawToken
+
+	fmt.Println("**** End Config *****")
+
 }
