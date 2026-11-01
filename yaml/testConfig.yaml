@@ -21,6 +21,6 @@ Config:
   TimeLayout: "2006-01-02T15:04:05Z" # time layout
   TopLevelAttributes: false           # include top level attributes
   TypesOnly: false                # generate structs only, without header, package, or imports
-  UsePointersForOptionalFields: bool # use pointers for options
+  UsePointersForOptionalFields: false # use pointers for options
   UseRawToken: false             # use encoding/xml.Decoder.RawToken")
 
